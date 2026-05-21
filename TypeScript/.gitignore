@@ -1,0 +1,25 @@
+# --- DÉPENDANCES ---
+# Contient les milliers de paquets installés par npm install (Webpack, TS, etc.)
+node_modules/
+
+# --- FICHIERS GÉNÉRÉS PAR WEBPACK (BUILD) ---
+# Le dossier où Webpack compile ton code de production (bundle.js, index.html)
+dist/
+build/
+
+# --- CACHE ET LOGS ---
+# Cache généré par TypeScript et ESLint pour accélérer les vérifications
+.eslintcache
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# --- CONFIGURATION PERSONNELLE & IDE ---
+# Paramètres spécifiques à ton éditeur (VS Code, JetBrains)
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
