@@ -68,6 +68,21 @@ const executeWork = (employee: Director | Teacher): string => {
 };
 
 // ============================================================================
+// TÂCHE 7 : String literal types
+// ============================================================================
+
+// Définition du String Literal Type
+type Subjects = 'Math' | 'History';
+
+// Fonction teachClass restreinte au type Subjects
+const teachClass = (todayClass: Subjects): string => {
+  if (todayClass === 'Math') {
+    return 'Teaching Math';
+  }
+  return 'Teaching History';
+};
+
+// ============================================================================
 // ZONE DE TEST (Vérification dans la console)
 // ============================================================================
 
@@ -81,3 +96,8 @@ console.log(createEmployee('$500'));  // Affiche l'instance de Director
 console.log('\n--- Tests Tâche 6 (executeWork) ---');
 console.log(executeWork(createEmployee(200)));    // Affiche : Getting to work
 console.log(executeWork(createEmployee(1000)));   // Affiche : Getting to director tasks
+
+// Tests Tâche 7
+console.log('\n--- Tests Tâche 7 (teachClass) ---');
+console.log(teachClass('Math'));    // Affiche : Teaching Math
+console.log(teachClass('History')); // Affiche : Teaching History
