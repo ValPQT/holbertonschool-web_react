@@ -1,4 +1,7 @@
-// --- Interfaces ---
+// ============================================================================
+// TÂCHE 5 : Interfaces et Classes pour Director et Teacher
+// ============================================================================
+
 interface DirectorInterface {
   workFromHome(): string;
   getCoffeeBreak(): string;
@@ -11,7 +14,6 @@ interface TeacherInterface {
   workTeacherTasks(): string;
 }
 
-// --- Classe Director ---
 class Director implements DirectorInterface {
   workFromHome(): string {
     return 'Working from home';
@@ -26,7 +28,6 @@ class Director implements DirectorInterface {
   }
 }
 
-// --- Classe Teacher ---
 class Teacher implements TeacherInterface {
   workFromHome(): string {
     return 'Cannot work from home';
@@ -41,19 +42,42 @@ class Teacher implements TeacherInterface {
   }
 }
 
-// --- Fonction Factory (création d'employé) ---
-// salary: number | string utilise un type d'union (soit l'un, soit l'autre)
-// Le type de retour est soit Director, soit Teacher
+// Fonction Factory (création d'un employé selon le salaire)
 const createEmployee = (salary: number | string): Director | Teacher => {
-  // Si le salaire est un nombre et inférieur à 500, on crée un Teacher
   if (typeof salary === 'number' && salary < 500) {
     return new Teacher();
   }
-  // Dans tous les autres cas (nombre >= 500 ou chaîne de caractères comme '$500'), on crée un Director
   return new Director();
 };
 
-// --- ZONE DE TEST ---
-console.log(createEmployee(200));   // Devrait afficher l'objet Teacher
-console.log(createEmployee(1000));  // Devrait afficher l'objet Director
-console.log(createEmployee('$500')); // Devrait afficher l'objet Director
+// ============================================================================
+// TÂCHE 6 : Fonctions spécifiques aux employés (Type Guards)
+// ============================================================================
+
+// Type predicate pour vérifier si l'employé est un directeur
+const isDirector = (employee: Director | Teacher): employee is Director => {
+  return (employee as Director).workDirectorTasks !== undefined;
+};
+
+// Fonction pour exécuter le travail spécifique à la classe détectée
+const executeWork = (employee: Director | Teacher): string => {
+  if (isDirector(employee)) {
+    return employee.workDirectorTasks();
+  }
+  return employee.workTeacherTasks();
+};
+
+// ============================================================================
+// ZONE DE TEST (Vérification dans la console)
+// ============================================================================
+
+// Tests Tâche 5
+console.log('--- Tests Tâche 5 (createEmployee) ---');
+console.log(createEmployee(200));    // Affiche l'instance de Teacher
+console.log(createEmployee(1000));   // Affiche l'instance de Director
+console.log(createEmployee('$500'));  // Affiche l'instance de Director
+
+// Tests Tâche 6
+console.log('\n--- Tests Tâche 6 (executeWork) ---');
+console.log(executeWork(createEmployee(200)));    // Affiche : Getting to work
+console.log(executeWork(createEmployee(1000)));   // Affiche : Getting to director tasks
